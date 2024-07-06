@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+homeassistant = "*"
+zero-motorcycles = "==2.0.0"
+colorlog = "*"
+ruff = "*"
+
+[dev-packages]
+pytest-homeassistant-custom-component = "==0.13.140"
+
+[requires]
+python_version = "3.12"

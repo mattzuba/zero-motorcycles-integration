@@ -2,15 +2,15 @@
     "config": {
         "step": {
             "user": {
-                "description": "If you need help with the configuration have a look here: https://github.com/ludeeus/integration_blueprint",
+                "description": "Enter your Zero Motorcycles Account Details",
                 "data": {
-                    "username": "Username",
+                    "username": "Email Address",
                     "password": "Password"
                 }
             }
         },
         "error": {
-            "auth": "Username/Password is wrong.",
+            "auth": "Email/Password is not correct.",
             "connection": "Unable to connect to the server.",
             "unknown": "Unknown error occurred."
         }
