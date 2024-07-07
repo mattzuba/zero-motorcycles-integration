@@ -37,7 +37,8 @@ SENSORS = (
         key="zero_moto",
         name="Mileage",
         device_class=SensorDeviceClass.DISTANCE,
-        native_unit_of_measurement="km",
+        native_unit_of_measurement="mi",
+        value_fn=lambda x: round(float(x) * 0.656290167),
         icon="mdi:road-variant",
     ),
     ZeroSensorEntityDescription(

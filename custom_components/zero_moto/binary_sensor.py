@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
@@ -14,6 +14,8 @@ from homeassistant.components.binary_sensor import (
 from .entity import ZeroEntity
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
@@ -26,6 +28,7 @@ class ZeroBinarySensorEntityDescription(BinarySensorEntityDescription):
     """Custom binary sensor entity description."""
 
     json: str
+    on_fn: Callable[[Any], int] = lambda x: int(x) == 1
 
 
 BINARY_SENSORS = (
@@ -63,6 +66,7 @@ BINARY_SENSORS = (
         json="gps_valid",
         name="GPS Valid",
         device_class=BinarySensorDeviceClass.PROBLEM,
+        on_fn=lambda x: int(x) == 0,
         icon="mdi:map-marker-alert",
     ),
     ZeroBinarySensorEntityDescription(
@@ -95,6 +99,8 @@ async def async_setup_entry(
 class ZeroBinarySensor(ZeroEntity, BinarySensorEntity):
     """zero_moto binary_sensor class."""
 
+    entity_description: ZeroBinarySensorEntityDescription
+
     def __init__(
         self,
         coordinator: ZeroDataUpdateCoordinator,
@@ -113,4 +119,6 @@ class ZeroBinarySensor(ZeroEntity, BinarySensorEntity):
     @property
     def is_on(self) -> bool:
         """Return true if the binary_sensor is on."""
-        return int(self.coordinator.data[self._unit].get(self._json, 0)) == 1
+        return self.entity_description.on_fn(
+            self.coordinator.data[self._unit].get(self._json, 0)
+        )
