@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.loader import Integration
-    from zero_motorcycles import Zero as ZeroApiClient
+    from zero_motorcycles import ZeroApiClient
 
     from .coordinator import ZeroDataUpdateCoordinator
 

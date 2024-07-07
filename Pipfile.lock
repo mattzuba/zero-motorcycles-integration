@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "7f674f6dd35de43786b6a92ba6225b8cbfbd23998be7280739ed694705adfde4"
+            "sha256": "498bef0d93e7565a70838840b757a0eba0a41cf0d0daf62e83c6db730591af80"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -1334,11 +1334,11 @@
         },
         "pip": {
             "hashes": [
-                "sha256:5aa64f65e1952733ee0a9a9b1f52496ebdb3f3077cc46f80a16d983b58d1180a",
-                "sha256:efca15145a95e95c00608afeab66311d40bfb73bb2266a855befd705e6bb15a0"
+                "sha256:7cd207eed4c60b0f411b444cd1464198fe186671c323b6cd6d433ed80fc9d247",
+                "sha256:e5458a0b89f2755e0ee8c0c77613fe5273e05f337907874d64f13171a898a7ff"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==24.1.1"
+            "version": "==24.1.2"
         },
         "psutil": {
             "hashes": [
@@ -1921,12 +1921,12 @@
         },
         "zero-motorcycles": {
             "hashes": [
-                "sha256:0a8307a4892315f8ac9a2e4d193b579d09847fea0e562419be000bb33ffe399d",
-                "sha256:dd089fbb538cc51d3d7775ab7f1f2e2ff22e766249910c735c9659c171a05157"
+                "sha256:088c0d96c602a3e0eebe5294992fee6af5bd2d1361b0aaf83f1c5399d5094269",
+                "sha256:5153210adeb6db66f273b4c5101d094ce67fcc36815a6cacf12c51206a6cb11e"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7'",
-            "version": "==2.0.0"
+            "version": "==3.0.0"
         }
     },
     "develop": {
@@ -3374,11 +3374,11 @@
         },
         "pip": {
             "hashes": [
-                "sha256:5aa64f65e1952733ee0a9a9b1f52496ebdb3f3077cc46f80a16d983b58d1180a",
-                "sha256:efca15145a95e95c00608afeab66311d40bfb73bb2266a855befd705e6bb15a0"
+                "sha256:7cd207eed4c60b0f411b444cd1464198fe186671c323b6cd6d433ed80fc9d247",
+                "sha256:e5458a0b89f2755e0ee8c0c77613fe5273e05f337907874d64f13171a898a7ff"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==24.1.1"
+            "version": "==24.1.2"
         },
         "pipdeptree": {
             "hashes": [

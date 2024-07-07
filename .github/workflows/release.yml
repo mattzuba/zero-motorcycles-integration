@@ -15,15 +15,15 @@ jobs:
       contents: write
     steps:
       - name: "Checkout the repository"
-        uses: "actions/checkout@v4.1.7"
+        uses: "actions/checkout@v4"
 
       - name: "ZIP the integration directory"
         shell: "bash"
         run: |
-          cd "${{ github.workspace }}/custom_components/integration_blueprint"
-          zip integration_blueprint.zip -r ./
+          cd "${{ github.workspace }}/custom_components/zero_moto"
+          zip zero_moto.zip -r ./
 
       - name: "Upload the ZIP file to the release"
-        uses: "softprops/action-gh-release@v2.0.6"
+        uses: "softprops/action-gh-release@v2"
         with:
           files: ${{ github.workspace }}/custom_components/zero_moto/zero_moto.zip

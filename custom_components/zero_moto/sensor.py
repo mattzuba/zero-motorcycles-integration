@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.sensor import (
@@ -12,6 +11,7 @@ from homeassistant.components.sensor import (
     SensorEntityDescription,
 )
 
+from .const import LOGGER
 from .entity import ZeroEntity
 
 if TYPE_CHECKING:
@@ -38,13 +38,12 @@ SENSORS = (
         name="Mileage",
         device_class=SensorDeviceClass.DISTANCE,
         native_unit_of_measurement="mi",
-        value_fn=lambda x: round(float(x) * 0.656290167),
+        value_fn=lambda x: round(x * 0.656290167),
         icon="mdi:road-variant",
     ),
     ZeroSensorEntityDescription(
         key="zero_moto",
         name="Elevation",
-        json="altitude",
         device_class=SensorDeviceClass.DISTANCE,
         native_unit_of_measurement="m",
         icon="mdi:elevation-rise",
@@ -69,7 +68,6 @@ SENSORS = (
         name="Last Update",
         json="datetime_utc",
         device_class=SensorDeviceClass.TIMESTAMP,
-        value_fn=lambda x: datetime.strptime(f"{x}+0000", "%Y%m%d%H%M%S%z"),
         icon="mdi:update",
     ),
     ZeroSensorEntityDescription(
@@ -82,7 +80,7 @@ SENSORS = (
     ZeroSensorEntityDescription(
         key="zero_moto",
         name="Charging Time Left",
-        json="chargingtimeleft",
+        json="charging_time_left",
         device_class=SensorDeviceClass.DURATION,
         native_unit_of_measurement="min",
     ),
@@ -126,9 +124,11 @@ class ZeroSensor(ZeroEntity, SensorEntity):
 
         self.entity_description = entity_description
 
+        LOGGER.debug(f"Setting up {self._attr_unique_id}")
+
     @property
     def native_value(self) -> str | None:
         """Return the native value of the sensor."""
         return self.entity_description.value_fn(
-            self.coordinator.data[self._unit].get(self._json)
+            getattr(self.coordinator.data[self._unit], self._json)
         )

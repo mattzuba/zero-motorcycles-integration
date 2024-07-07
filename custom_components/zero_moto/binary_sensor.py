@@ -11,6 +11,7 @@ from homeassistant.components.binary_sensor import (
     BinarySensorEntityDescription,
 )
 
+from .const import LOGGER
 from .entity import ZeroEntity
 
 if TYPE_CHECKING:
@@ -28,13 +29,13 @@ class ZeroBinarySensorEntityDescription(BinarySensorEntityDescription):
     """Custom binary sensor entity description."""
 
     json: str
-    on_fn: Callable[[Any], int] = lambda x: int(x) == 1
+    on_fn: Callable[[Any], int] = lambda x: x
 
 
 BINARY_SENSORS = (
     ZeroBinarySensorEntityDescription(
         key="zero_moto",
-        json="tipover",
+        json="tip_over",
         name="Tipped Over",
         device_class=BinarySensorDeviceClass.PROBLEM,
         icon="mdi:alert",
@@ -47,13 +48,13 @@ BINARY_SENSORS = (
     ),
     ZeroBinarySensorEntityDescription(
         key="zero_moto",
-        json="chargecomplete",
+        json="charge_complete",
         name="Charge Complete",
         icon="mdi:battery-charging-high",
     ),
     ZeroBinarySensorEntityDescription(
         key="zero_moto",
-        json="pluggedin",
+        json="plugged",
         name="Plugged In",
         device_class=BinarySensorDeviceClass.PLUG,
         icon="mdi:ev-plug-type1",
@@ -66,7 +67,7 @@ BINARY_SENSORS = (
         json="gps_valid",
         name="GPS Valid",
         device_class=BinarySensorDeviceClass.PROBLEM,
-        on_fn=lambda x: int(x) == 0,
+        on_fn=lambda x: not x,
         icon="mdi:map-marker-alert",
     ),
     ZeroBinarySensorEntityDescription(
@@ -116,9 +117,11 @@ class ZeroBinarySensor(ZeroEntity, BinarySensorEntity):
 
         self.entity_description = entity_description
 
+        LOGGER.debug(f"Setting up {self._attr_unique_id}")
+
     @property
     def is_on(self) -> bool:
         """Return true if the binary_sensor is on."""
         return self.entity_description.on_fn(
-            self.coordinator.data[self._unit].get(self._json, 0)
+            getattr(self.coordinator.data[self._unit], self._json)
         )

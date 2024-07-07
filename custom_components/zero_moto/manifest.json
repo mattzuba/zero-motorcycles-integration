@@ -8,6 +8,6 @@
   "documentation": "https://github.com/mattzuba/zero-motorcycles-integration",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/mattzuba/zero-motorcycles-integration/issues",
-  "requirements": ["zero-motorcycles==2.0.0"],
+  "requirements": ["zero-motorcycles==3.0.0"],
   "version": "0.9.0"
 }

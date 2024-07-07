@@ -15,6 +15,7 @@ class ZeroEntity(CoordinatorEntity[ZeroDataUpdateCoordinator]):
     _attr_attribution = ATTRIBUTION
     _attr_has_entity_name = True
     _unit: str
+    coordinator: ZeroDataUpdateCoordinator
 
     def __init__(self, coordinator: ZeroDataUpdateCoordinator) -> None:
         """Initialize."""
@@ -27,7 +28,7 @@ class ZeroEntity(CoordinatorEntity[ZeroDataUpdateCoordinator]):
             identifiers={(DOMAIN, self._unit)},
             manufacturer="Zero Motorcycles",
             model="Motorcycle",
-            name=self.coordinator.data[self._unit].get("name"),
-            serial_number=self.coordinator.data[self._unit].get("name"),
-            sw_version=self.coordinator.data[self._unit].get("software_version"),
+            name=f"Zero {self.coordinator.data[self._unit].vin[-5:]}",
+            serial_number=self.coordinator.data[self._unit].vin,
+            sw_version=self.coordinator.data[self._unit].software_version,
         )

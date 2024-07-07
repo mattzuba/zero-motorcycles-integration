@@ -6,7 +6,7 @@ import voluptuous as vol
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
-from zero_motorcycles import Zero as ZeroApiClient
+from zero_motorcycles import ZeroApiClient
 
 from .const import DOMAIN, LOGGER
 
@@ -55,3 +55,4 @@ class ZeroFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             session=async_create_clientsession(self.hass),
         )
         await client.async_get_units()
+        LOGGER.debug("Tested credentials successfully")

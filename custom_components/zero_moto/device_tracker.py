@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from homeassistant.components.device_tracker import SourceType
 from homeassistant.components.device_tracker.config_entry import TrackerEntity
 
+from .const import LOGGER
 from .entity import ZeroEntity
 
 if TYPE_CHECKING:
@@ -35,8 +36,6 @@ async def async_setup_entry(
 class ZeroTrackerEntity(ZeroEntity, TrackerEntity):
     """tracker_entity class."""
 
-    _attr_has_entity_name = True
-
     def __init__(self, coordinator: ZeroDataUpdateCoordinator, unit: str) -> None:
         """Initialize."""
         super().__init__(coordinator)
@@ -45,10 +44,7 @@ class ZeroTrackerEntity(ZeroEntity, TrackerEntity):
         self._attr_name = "Location"
         self._attr_icon = "mdi:map-marker-radius-outline"
 
-    @property
-    def should_poll(self) -> bool:
-        """Need to poll on this one."""
-        return True
+        LOGGER.debug(f"Setting up {self._attr_unique_id}")
 
     @property
     def source_type(self) -> SourceType:
@@ -58,19 +54,19 @@ class ZeroTrackerEntity(ZeroEntity, TrackerEntity):
     @property
     def battery_level(self) -> int | None:
         """Return the battery level."""
-        return int(self.coordinator.data[self._unit].get("soc"))
+        return self.coordinator.data[self._unit].soc
 
     @property
     def location_name(self) -> str | None:
         """Return the location_name."""
-        return self.coordinator.data[self._unit].get("address")
+        return self.coordinator.data[self._unit].address
 
     @property
     def latitude(self) -> float | None:
         """Return the latitude."""
-        return self.coordinator.data[self._unit].get("latitude")
+        return self.coordinator.data[self._unit].latitude
 
     @property
     def longitude(self) -> float | None:
         """Return the longitude."""
-        return self.coordinator.data[self._unit].get("longitude")
+        return self.coordinator.data[self._unit].longitude

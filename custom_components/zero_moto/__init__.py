@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import async_get_loaded_integration
-from zero_motorcycles import Zero as ZeroApiClient
+from zero_motorcycles import ZeroApiClient
 
 from .coordinator import ZeroDataUpdateCoordinator
 from .data import ZeroData

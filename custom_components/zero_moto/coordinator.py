@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from datetime import timedelta
 
     from homeassistant.core import HomeAssistant
+    from zero_motorcycles import Zero
 
     from .data import ZeroConfigEntry
 
@@ -21,6 +22,7 @@ class ZeroDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
     config_entry: ZeroConfigEntry
+    data: dict[str, Zero]
 
     def __init__(
         self,
@@ -41,14 +43,15 @@ class ZeroDataUpdateCoordinator(DataUpdateCoordinator):
         try:
             # First get all of the units
             units = await self.config_entry.runtime_data.client.async_get_units()
-            self.logger.debug(units)
+            self.logger.debug("Successfully fetched %d units", len(units))
             for unit in units:
-                unit_data = (
-                    await self.config_entry.runtime_data.client.async_get_last_transmit(
-                        unit["unitnumber"]
-                    )
+                self.logger.debug("Fetching %s - %s", unit.unit, unit.name)
+                data[
+                    unit.unit
+                ] = await self.config_entry.runtime_data.client.async_get_last_transmit(
+                    unit.unit
                 )
-                data[unit["unitnumber"]] = unit_data[0]
+
         except Exception as exception:
             self.logger.exception("Exception while fetching data from API")
             raise UpdateFailed(exception) from exception
