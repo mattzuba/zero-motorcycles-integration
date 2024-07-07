@@ -6,13 +6,14 @@ import voluptuous as vol
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
-
 from zero_motorcycles import Zero as ZeroApiClient
+
 from .const import DOMAIN, LOGGER
 
 DATA_SCHEMA = vol.Schema(
     {vol.Required(CONF_USERNAME): str, vol.Required(CONF_PASSWORD): str}
 )
+
 
 class ZeroFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Blueprint."""
@@ -23,6 +24,7 @@ class ZeroFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         self,
         user_input: dict | None = None,
     ) -> data_entry_flow.FlowResult:
+        """User login."""
         _errors = {}
         if user_input is not None:
             try:
@@ -30,7 +32,7 @@ class ZeroFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     username=user_input[CONF_USERNAME],
                     password=user_input[CONF_PASSWORD],
                 )
-            except Exception as exception:  # pylint: disable=broad-except
+            except Exception as exception:  # noqa: BLE001
                 LOGGER.warning(exception)
                 _errors["base"] = "auth"
             else:
