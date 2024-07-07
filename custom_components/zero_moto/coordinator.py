@@ -52,5 +52,5 @@ class ZeroDataUpdateCoordinator(DataUpdateCoordinator):
         except Exception as exception:
             self.logger.exception("Exception while fetching data from API")
             raise UpdateFailed(exception) from exception
-        else:
-            return data
+
+        return data
