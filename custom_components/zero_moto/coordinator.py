@@ -25,19 +25,32 @@ class ZeroDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(
         self,
         hass: HomeAssistant,
+        update_interval: timedelta,
     ) -> None:
         """Initialize."""
         super().__init__(
             hass=hass,
             logger=LOGGER,
             name=DOMAIN,
-            update_interval=timedelta(hours=1),
+            update_interval=update_interval,
         )
 
     async def _async_update_data(self) -> Any:
         """Update data via library."""
+        data = {}
         try:
-            return {}
-            # return await self.config_entry.runtime_data.client.async_get_data()
+            # First get all of the units
+            units = await self.config_entry.runtime_data.client.async_get_units()
+            self.logger.debug(units)
+            for unit in units:
+                unit_data = (
+                    await self.config_entry.runtime_data.client.async_get_last_transmit(
+                        unit["unitnumber"]
+                    )
+                )
+                data[unit["unitnumber"]] = unit_data[0]
         except Exception as exception:
+            self.logger.exception("Exception while fetching data from API")
             raise UpdateFailed(exception) from exception
+        else:
+            return data

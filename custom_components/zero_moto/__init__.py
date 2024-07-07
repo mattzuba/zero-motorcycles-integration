@@ -7,6 +7,7 @@ https://github.com/mattzuba/zero-motorcycles-integration
 
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME, Platform
@@ -25,7 +26,7 @@ if TYPE_CHECKING:
 PLATFORMS: list[Platform] = [
     Platform.SENSOR,
     Platform.BINARY_SENSOR,
-    Platform.SWITCH,
+    Platform.DEVICE_TRACKER,
 ]
 
 
@@ -37,6 +38,7 @@ async def async_setup_entry(
     """Set up this integration using UI."""
     coordinator = ZeroDataUpdateCoordinator(
         hass=hass,
+        update_interval=timedelta(minutes=5),
     )
     entry.runtime_data = ZeroData(
         client=ZeroApiClient(
