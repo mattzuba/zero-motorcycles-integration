@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "498bef0d93e7565a70838840b757a0eba0a41cf0d0daf62e83c6db730591af80"
+            "sha256": "1043a416e3d4cf5122fc6833208f85efb0b8c0dcfb66b6e90ad803fbe255ce3a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -2867,7 +2867,6 @@
                 "sha256:42ca56a90b636754a1fd60d10c83367d94c22c76c97be724bc5c4c11b92e7d4d",
                 "sha256:a45b2fd20bb2a6744f7993a0d96ac6d872f6ed6f74de200d1e4bdd43c742247a"
             ],
-            "index": "pypi",
             "markers": "python_full_version >= '3.12.0'",
             "version": "==2024.7.1"
         },
@@ -3639,12 +3638,12 @@
         },
         "pytest-homeassistant-custom-component": {
             "hashes": [
-                "sha256:886fd94881875a0968603023fa6bd812a44fd29ca7767cf499fdd7eb4744392f",
-                "sha256:eb20aabb8e929e2f1b4611a0314030635716cb8380d59c156648c562949b2e2d"
+                "sha256:3e3a330efee432f0d5ad3bb382789431c8f9134d0fbfe183d717a9c4c4f99f04",
+                "sha256:c8e4309c322c2b21bf459a80e09d684be9bdbd848ddd91db292f21a7ecdab2ce"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.12'",
-            "version": "==0.13.140"
+            "version": "==0.13.145"
         },
         "pytest-picked": {
             "hashes": [
