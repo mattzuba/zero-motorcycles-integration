@@ -10,7 +10,7 @@ colorlog = "*"
 ruff = "*"
 
 [dev-packages]
-pytest-homeassistant-custom-component = "==0.13.140"
+pytest-homeassistant-custom-component = "==0.13.158"
 
 [requires]
 python_version = "3.12"
